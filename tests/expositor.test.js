@@ -40,12 +40,34 @@ describe('Testes do Expostor Controller', () => {
     });
 
     test('listar expositores', async () => {
-    await req(app).post('/expositores').send({ nome: 'Zezin', email: 'zezinho@email.com', instituicao: 'Zezinho Instituicao' });
-    const res = await req(app).get('/expositores');
-    expect(res.status).toBe(200);
-    expect(Array.isArray(res.body)).toBe(true);
-    expect(res.body.length).toBeGreaterThan(0);
-});
+        await req(app).post('/expositores').send({ nome: 'Zezin', email: 'zezinho@email.com', instituicao: 'Zezinho Instituicao' });
+        const res = await req(app).get('/expositores');
+        expect(res.status).toBe(200);
+        expect(Array.isArray(res.body)).toBe(true);
+        expect(res.body.length).toBeGreaterThan(0);
+    });
 
+    test('Buscar expositor por ID existente', async () => {
+       const expositor =  await req(app).post('/expositores').send({ nome: 'Ana', email: 'ana@email.com', instituicao: 'IF' });
+       const id = expositor.body.data.id;
+        const res = await req(app).get(`/expositores/${id}`);
+        expect(res.status).toBe(200);
+        expect(res.body).toHaveProperty('nome', 'Ana');
+    });
+    
+    test('Buscar expositor por ID inexistente', async () => {
+        const res = await req(app).get('/expositores/9999');
+        expect(res.status).toBe(404);
+        expect(res.body.msg).toBe('Expositor não encontrado');
+    });
+
+    test('Deletar expositor existente', async () => {
+        const expositor = await req(app).post('/expositores').send({ nome: 'Carlos', email: 'carlos@email.com', instituicao: 'UF' });
+        const id = expositor.body.data.id;
+        const res = await req(app).delete(`/expositores/${id}`);
+        expect(res.status).toBe(200);
+        expect(res.body.msg).toBe('Expositor removido com sucesso');
+    });
+    
 })
 

@@ -6,5 +6,9 @@ const router = express.Router();
 router.post('/', expositorController.Cadastrar);
 // listar expositores
 router.get('/', expositorController.Listar);
+// listar por expositor
+router.get('/:id', expositorController.ListarPorId)
+// deletar expositor
+router.delete('/:id', expositorController.deletar)
 
 module.exports = router;

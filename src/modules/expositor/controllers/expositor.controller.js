@@ -30,6 +30,35 @@ class expositorController {
             return res.status(500).json({ msg: 'Erro interno no servidor' });
         }
     }
+
+    static async ListarPorId(req, res){
+        try {
+            const {id} = req.params;
+            const expositor = await expositorModel.findByPk(id);
+            if(!expositor){
+                return res.status(404).json({msg: 'Expositor não encontrado'})
+            }
+            res.status(200).json(expositor);
+        } catch (error) {
+            console.error('Erro ao buscar expositor:', error)
+            res.status(500).json({msg: 'Erro interno do servidor'})
+        }
+    }
+
+    static async deletar(req, res){
+        try {
+            const {id} = req.params;
+            const expositor = await expositorModel.findByPk(id);
+            if(!expositor){
+                return res.status(404).json({msg: 'Expositor não encontrado'})
+            }
+            await expositor.destroy();
+            res.status(200).json({msg: 'Expositor removido com sucesso'})
+        } catch (error) {
+            console.error('Erro ao deletar expositor:', error);
+            res.status(500).json({msg: 'Erro interno do servidor'})
+        }
+    }
 }
 
 module.exports = expositorController;
