@@ -1,5 +1,4 @@
 const expositorModel = require('../src/modules/expositor/models/expositor.model');
-const expositorController = require('../src/modules/expositor/controllers/expositor.controller');
 const { sequelize } = require('../src/config/configDB');
 const app = require('../index');
 const req = require('supertest')
