@@ -11,7 +11,7 @@ app.use('/expositores', expositorRoute);
 
 async function main() {
     try {
-      await sequelize.sync({ force: true });
+      //await sequelize.sync({ force: true });
       app.listen(PORT, () => {
         console.log(`Aplicação rodando em http://localhost:${PORT}`);
       });

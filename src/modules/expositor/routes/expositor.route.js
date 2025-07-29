@@ -4,5 +4,7 @@ const router = express.Router();
 
 // cadastrar expositor
 router.post('/', expositorController.Cadastrar);
+// listar expositores
+router.get('/', expositorController.Listar);
 
 module.exports = router;

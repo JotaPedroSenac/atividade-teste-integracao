@@ -26,7 +26,15 @@ const ExpositorModel = sequelize.define('Expositor', {
     instituicao: {
         type: DataTypes.STRING(200),
         allowNull: false
+    },
+},
+    {
+        tableName: 'expositores',
+        timestamps: true,
+        createdAt: 'criado_em',
+        updatedAt: 'atualizado_em',
     }
-});
+
+);
 
 module.exports = ExpositorModel;
